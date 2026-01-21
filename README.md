@@ -23,6 +23,12 @@ Make sure that you also configure `pre-commit`:
 uv run pre-commit install
 ```
 
+## Building the Docker image
+
+``` sh
+docker build -t dmc_k8s_ml_startup_probes:latest .
+```
+
 
 <!-- links -->
 [meetup]: https://www.meetup.com/denver-mlops-community/events/312856102/

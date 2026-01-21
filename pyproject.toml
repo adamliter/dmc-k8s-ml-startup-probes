@@ -18,6 +18,9 @@ dependencies = [
 ]
 readme = "README.md"
 
+[project.scripts]
+start_server = "dmc_k8s_ml_startup_probes.app.main:main"
+
 [dependency-groups]
 dev = [
     {include-group = "lint"},
