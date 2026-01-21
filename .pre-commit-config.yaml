@@ -1,0 +1,48 @@
+# -*- mode: yaml; coding: utf-8; fill-column: 80 -*-
+---
+default_install_hook_types: [pre-commit]
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+  # Ruff, ty, and pytest from .venv managed by uv
+  - repo: local
+    hooks:
+      # Ensure linting with --fix comes before formatting
+      - id: ruff
+        name: ruff-linting
+        description: Linting with Ruff
+        entry: uv run ruff check --force-exclude --fix
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
+      - id: ruff-format
+        name: ruff-format
+        description: Fortmatting with Ruff
+        entry: uv run ruff format --force-exclude
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
+      - id: ty-check
+        name: ty-check
+        description: Type checking with ty
+        entry: uv run ty check
+        language: system
+        types_or: [python, pyi]
+        pass_filenames: false
+        always_run: true
+        require_serial: false
+      - id: pytest
+        name: pytest
+        description: Run pytest
+        entry: uv run pytest
+        language: system
+        types_or: [python, pyi]
+        pass_filesnames: false
+        always_run: false
+        stages:
+          - pre-push

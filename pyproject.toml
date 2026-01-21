@@ -1,0 +1,43 @@
+# -*- mode: conf-toml; coding: utf-8; fill-column: 80 -*-
+[project]
+name = "dmc-k8s-ml-startup-probes"
+version = "0.1.0"
+description = """\
+Toy FastAPI application for demonstrating startup probes at the Denver MLOps Community\
+meetup.\
+"""
+authors = [
+    {name = "Adam Liter", email = "io@adamliter.org"},
+]
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi[standard]>=0.121.3",
+    "orjson>=3.11.4",
+    "python-json-logger>=4.0.0",
+    "uvicorn>=0.38.0",
+]
+readme = "README.md"
+
+[dependency-groups]
+dev = [
+    {include-group = "lint"},
+    {include-group = "test"},
+]
+lint = [
+    "pre-commit>=4.4.0",
+    "ruff>=0.14.5",
+    "ty>=0.0.1a26",
+]
+test = [
+    "pytest>=9.0.1",
+    "pytest-cov>=7.0.0",
+]
+
+[tool.ruff]
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "ERA", "F", "G", "I", "LOG", "PERF", "PT", "RUF", "W"]
+
+[tool.uv]
+package = true

@@ -1,0 +1,8 @@
+# -*- mode: gitignore; coding: utf-8; -*-
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.venv
