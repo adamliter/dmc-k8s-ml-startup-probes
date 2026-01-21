@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dmc-k8s-ml-startup-probes
+  labels:
+    app: dmc-k8s-ml-startup-probes
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dmc-k8s-ml-startup-probes
+  template:
+    metadata:
+      labels:
+        app: dmc-k8s-ml-startup-probes
+    spec:
+      containers:
+        - name: dmc-k8s-ml-startup-probes
+          image: dmc_k8s_ml_startup_probes:latest
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 0  # default is 0
+            periodSeconds: 3        # default is 10
+            failureThreshold: 3     # default is 3
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8080
+            initialDelaySeconds: 0  # default is 0
+            periodSeconds: 3        # default is 10
+            failureThreshold: 3     # default is 3
+          # startupProbe:
+          #   httpGet:
+          #     path: /readyz
+          #     port: 8080
+          #   initialDelaySeconds: 30  # default is 0
+          #   periodSeconds: 10        # default is 10
+          #   failureThreshold: 6      # default is 3
